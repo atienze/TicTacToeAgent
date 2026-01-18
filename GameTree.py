@@ -1,4 +1,5 @@
 from collections import deque
+import random
 
 # Name: Elijah Atienza
 # Date: 2/10/25
@@ -54,30 +55,54 @@ class GameTree:
         returns: 
             GameTree: Returns a game tree child node that maximizes or minimizes the desired result
         """
-        best_child = GameTree(self.game_board, depth)
-
+        # Base case: Leaf node or Max Depth
         if (depth == 0 or self.game_board.checkWin() or self.game_board.checkDraw()):
             self.minimax_value = self.game_board.evaluate()
             return self
 
+        best_children = [] # List to hold all children with the "best" value found so far
+
         if (max_player):
             maxEval = float('-inf')
+            
             for child in self.children:
-                eval = child.run_minimax(depth - 1, False)
-                if eval.minimax_value > maxEval:
-                    maxEval = eval.minimax_value
-                    best_child = child
-                self.minimax_value = maxEval
-            return best_child
-        else:
+                # Recursive call
+                eval_node = child.run_minimax(depth - 1, False)
+                
+                if eval_node.minimax_value > maxEval:
+                    # Found a strictly better move: Clear list and add this one
+                    maxEval = eval_node.minimax_value
+                    best_children = [child]
+                elif eval_node.minimax_value == maxEval:
+                    # Found a move just as good as the best: Add to list
+                    best_children.append(child)
+            
+            # Assign the value to this node
+            self.minimax_value = maxEval
+            
+            # Pick a random move from the best options
+            return random.choice(best_children) if best_children else None
+
+        else: # Minimizing player
             minEval = float('inf')
+            
             for child in self.children:
-                eval = child.run_minimax(depth - 1, True)
-                if eval.minimax_value < minEval:
-                    minEval = eval.minimax_value
-                    best_child = child
-                self.minimax_value = minEval
-            return best_child
+                # Recursive call
+                eval_node = child.run_minimax(depth - 1, True)
+                
+                if eval_node.minimax_value < minEval:
+                    # Found a strictly better move (lower is better for min)
+                    minEval = eval_node.minimax_value
+                    best_children = [child]
+                elif eval_node.minimax_value == minEval:
+                    # Found a move just as good: Add to list
+                    best_children.append(child)
+            
+            # Assign the value to this node
+            self.minimax_value = minEval
+            
+            # Pick a random move from the best options
+            return random.choice(best_children) if best_children else None
 
     def find_valid_moves(self): 
         """
