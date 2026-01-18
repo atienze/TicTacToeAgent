@@ -12,15 +12,15 @@ This project implements a classic Tic-Tac-Toe game where an AI agent determines 
 * **Object-Oriented Design:** Clean separation of concerns between the Agent, GameBoard, and GameTree logic.
 * **Console Interface:** Simple, text-based visualization of the game board.
 
-## Code Structure
+### Code Structure
 
-### 1. Agent
+#### 1. Agent
 The "brain" of the operation. It manages the AI's turn by instantiating a GameTree and triggering the Minimax algorithm.
 
-### 2. GameTree
+#### 2. GameTree
 Handles the recursive search logic.
 
-### 3. GameBoard
+#### 3. GameBoard
 Manages the state of the game.
 
 ## Getting Started
