@@ -32,8 +32,8 @@ Manages the state of the game.
 
 1.  **Clone the repository**
     ```bash
-    git clone [https://github.com/yourusername/tictactoe-ai.git](https://github.com/yourusername/tictactoe-ai.git)
-    cd tictactoe-ai
+    git clone https://github.com/atienze/TicTacToeAgent.git TicTacToeAgent
+    cd TicTacToeAgent
     ```
 
 2.  **Run the program**
